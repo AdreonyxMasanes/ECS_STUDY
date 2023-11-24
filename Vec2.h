@@ -26,7 +26,7 @@ class Vec2
 
     // 
     float distance(const Vec2 & rhs) const;
-    float length(const Vec2& v) const;
+    float length() const;
     void normalize();
 
 

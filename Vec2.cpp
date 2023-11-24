@@ -79,21 +79,24 @@ void Vec2::operator /= (const float val)
     this->y = this->y / val;
 }
 
-float Vec2::length(const Vec2& v) const
+
+// Get the length of the current Vector
+float Vec2::length() const
 {
-    return (sqrtf( pow(v.x, 2) + pow(v.y, 2) ));
+    return (sqrtf( pow(this->x, 2) + pow(this->y, 2) ));
 }
 
+// Get the distance from the current vector to another vector
 float Vec2::distance(const Vec2& rhs) const
 {
     // Find the Difference vector
-    // "this" keyword returns a pointer to the current obj. To use it you must then dereference with the *
-    Vec2 differenceVector = *this - rhs;
-    // Find the length of the Difference Vector
-    return(length(differenceVector));
+    Vec2 differenceVector = *this - rhs; // "this" keyword returns a pointer to the current obj. To use it you must then dereference with the *
+    // The distance is the length of the difference vector
+    return(differenceVector.length());
 }
 
+// Set the length of the vector to one
 void Vec2::normalize()
 {
-    *this /= length(*this);
+    *this /= this->length();
 }
