@@ -9,20 +9,10 @@ int main()
 {
     bool isEqual;
     bool isNotEqual;
-    Vec2 a(2.0f,4.0f);
-    Vec2 b(2.0f,4.0f);
-    Vec2 c(3.0f,6.0f);
-    Vec2 d;
-    Vec2 e;
+    Vec2 a(3.0f,1.0f);
+    Vec2 b(-2.0f,2.0f);
 
-    // The New Vec should be (6.0,12.0)
-    a *= 3.0f;
-    std::cout << "D.x: " << a.x << std::endl;
-    std::cout << "D.y: " << a.y << std::endl;
-    // The New Vec should be (1.0,2.0f)
-    c /= 3.0f;
-    std::cout << "E.x: " << c.x << std::endl;
-    std::cout << "E.y: " << c.y << std::endl;
-
+    // Should be 5.09901951359 or 5.09902 rounded
+    std::cout << "The distance between vectors a and b is: " << a.distance(b) << std::endl;
     return 0;
 }

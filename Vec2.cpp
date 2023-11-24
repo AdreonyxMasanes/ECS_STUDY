@@ -78,3 +78,22 @@ void Vec2::operator /= (const float val)
     this->x = this->x / val;
     this->y = this->y / val;
 }
+
+float Vec2::length(const Vec2& v) const
+{
+    return (sqrtf( pow(v.x, 2) + pow(v.y, 2) ));
+}
+
+float Vec2::distance(const Vec2& rhs) const
+{
+    // Find the Difference vector
+    // "this" keyword returns a pointer to the current obj. To use it you must then dereference with the *
+    Vec2 differenceVector = *this - rhs;
+    // Find the length of the Difference Vector
+    return(length(differenceVector));
+}
+
+void Vec2::normalize()
+{
+    *this /= length(*this);
+}
