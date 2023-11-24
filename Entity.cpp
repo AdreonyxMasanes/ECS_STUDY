@@ -11,9 +11,19 @@ bool Entity::isAlive() const
     return m_alive;
 }
 
-std::string & Entity::getTag() const
+const std::string & Entity::getTag() const
 {
-    return &m_tag;
+    return m_tag;
+}
+
+size_t Entity::getId() const
+{
+    return m_id;
+}
+
+void Entity::destroy()
+{
+    m_alive = !m_alive;
 }
 
 
