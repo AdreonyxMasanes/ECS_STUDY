@@ -1,4 +1,3 @@
-#pragma once
 class Vec2
 {
     public:
@@ -28,8 +27,5 @@ class Vec2
     float distance(const Vec2 & rhs) const;
     float length() const;
     void normalize();
-
-
-
 
 };
