@@ -15,8 +15,13 @@ class EntityManager
     EntityVec m_toAdd;
     size_t totalEntities = 0;
 
+    void initialize();
+
     public:
+    // Constructor
     EntityManager(){};
+    
+    
     void update();
     std::shared_ptr<Entity> addEntity(const std::string & tag);
     EntityVec & getEntites();
