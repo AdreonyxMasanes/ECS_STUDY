@@ -8,12 +8,11 @@ class CTransform
     public:
     Vec2 pos = { 0.0f, 0.0f };
     Vec2 velocity = { 0.0f, 0.0f };
-    Vec2 scale = { 0.0f, 0.0f };
     float angle = 0;
 
     // Constructor
-    CTransform(const Vec2 & p, const Vec2 & v, const Vec2 & s, const float a)
-    : pos(p), velocity(v), scale(s), angle(a) {};
+    CTransform(const Vec2 & p, const Vec2 & v, const float a)
+    : pos(p), velocity(v), angle(a) {};
 };
 
 class CShape

@@ -41,6 +41,8 @@ class Game
     void sEnemySpawner();
     void sCollison();
 
+    void windowSizeTest();
+    
     public:
     Game(const std::string & config);
     void run();
