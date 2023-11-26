@@ -32,7 +32,7 @@ class Game
     void spawnPlayer();
     void spawnEnemy();
     void spawnSmallEnemies(std::shared_ptr<Entity> entity);
-    void spawnBullet(std::shared_ptr<Entity>, const Vec2 & mousePos);
+    void spawnBullet(std::shared_ptr<Entity>  & entity, const Vec2 & mousePos);
     void spawnSpecialMove(std::shared_ptr<Entity> & entity);
 
     void sMovement();
@@ -40,8 +40,7 @@ class Game
     void sRender();
     void sEnemySpawner();
     void sCollison();
-
-    void windowSizeTest();
+    void sLifespan();
     
     public:
     Game(const std::string & config);

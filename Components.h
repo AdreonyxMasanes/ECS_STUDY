@@ -54,6 +54,7 @@ class CInput
 
 class CScore
 {
+    public:
     int score = 0;
     CScore(int s)
     : score(s) {};
@@ -61,6 +62,7 @@ class CScore
 
 class CLifespan
 {
+    public:
     int remaining = 0;
     int initial = 0;
     CLifespan(int initial)
