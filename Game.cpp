@@ -94,11 +94,14 @@ void Game::spawnEnemy()
     auto entity = m_entities.addEntity("Enemy");
     
     float randSpeed = m_enemyConfig.SMIN + static_cast <float> (rand() / (static_cast <float> (RAND_MAX / (m_enemyConfig.SMAX-m_enemyConfig.SMIN))));
+    // Rand float pos between 0 and max window width minus 50
+    float randPosX = static_cast <float> (rand() / (static_cast <float> (RAND_MAX / (m_window.getSize().x - 50))));
+    float randPosY = static_cast <float> (rand() / (static_cast <float> (RAND_MAX / (m_window.getSize().y - 50))));
     Vec2 eSpeed(rand() % m_window.getSize().x - 50, rand() % m_window.getSize().y - 50);
     eSpeed.normalize();
     eSpeed *= randSpeed;
     // Pos are set to - 50 from max size of window to prevent them from spawning directly on the edge
-    entity->cTransform = std::make_shared<CTransform>(Vec2( rand() % m_window.getSize().x, rand() % m_window.getSize().y), eSpeed, 0.0f);
+    entity->cTransform = std::make_shared<CTransform>(Vec2( randPosX, randPosY), eSpeed, 0.0f);
 
     int vertices = rand() % (m_enemyConfig.VMAX - m_enemyConfig.VMIN + 1) + m_enemyConfig.VMIN;
     int r = rand() % (255 - 0 + 1) + 0;
@@ -235,11 +238,8 @@ void Game::sMovement()
 
 void Game::sEnemySpawner()
 {
-    m_activeEnemies = 0;
-    for(auto &e : m_entities.getEntities("Enemy"))
-    {
-        m_activeEnemies++;
-    }
+    m_activeEnemies = m_entities.getEntities("Enemy").size();
+
     std::cout << "Active Enemies: " << m_activeEnemies << std::endl;
     if(m_currentFrame - m_lastEnemySpawnTime > m_enemyConfig.SI)
     {
