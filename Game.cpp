@@ -161,6 +161,7 @@ void Game::sUserInput()
                     break;
                 case sf::Keyboard::P :
                     m_paused = !m_paused;
+                        break;
                 case sf::Keyboard::Escape :
                     m_running = false;
                     break;
@@ -233,9 +234,12 @@ void Game::sMovement()
 
 void Game::sEnemySpawner()
 {
-    if(m_currentFrame - m_lastEnemySpawnTime > m_enemyConfig.SI)
+    if(m_currentFrame - m_lastEnemySpawnTime > m_enemyConfig.SI )
     {
-        spawnEnemy();
+        if(m_activeEnemies <= 15)
+        {
+            spawnEnemy();
+        }
     }
 }
 
@@ -325,6 +329,7 @@ void Game::run()
     while(m_running)
     {
         m_entities.update();
+        m_activeEnemies = m_entities.getEntities("Enemy").size();
         
         if(!m_paused)
         {
@@ -335,7 +340,6 @@ void Game::run()
         }
         sUserInput();
         sRender();
-
         m_currentFrame++;
     }    
 }
