@@ -113,8 +113,6 @@ void Game::spawnEnemy()
 
     entity->cCollision = std::make_shared<CCollision>(m_enemyConfig.CR);
     entity->cScore = std::make_shared<CScore>(vertices * 100);
-    std::cout << "EnemyID" << entity->getId() << "X:" << entity->cTransform->pos.x << std:: endl;
-    std::cout << "EnemyID" << entity->getId() << "Y:" << entity->cTransform->pos.y << std:: endl;
     // Keep track of frame when an enemy was spawned
     m_lastEnemySpawnTime = m_currentFrame;
 
