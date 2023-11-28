@@ -98,7 +98,7 @@ void Game::spawnEnemy()
     eSpeed.normalize();
     eSpeed *= randSpeed;
     // Pos are set to - 50 from max size of window to prevent them from spawning directly on the edge
-    entity->cTransform = std::make_shared<CTransform>(Vec2( rand() % m_window.getSize().x - 50, rand() % m_window.getSize().y - 50), eSpeed, 0.0f);
+    entity->cTransform = std::make_shared<CTransform>(Vec2( rand() % m_window.getSize().x, rand() % m_window.getSize().y), eSpeed, 0.0f);
 
     int vertices = rand() % (m_enemyConfig.VMAX - m_enemyConfig.VMIN + 1) + m_enemyConfig.VMIN;
     int r = rand() % (255 - 0 + 1) + 0;
@@ -110,6 +110,8 @@ void Game::spawnEnemy()
 
     entity->cCollision = std::make_shared<CCollision>(m_enemyConfig.CR);
     entity->cScore = std::make_shared<CScore>(vertices * 100);
+    std::cout << "EnemyID" << entity->getId() << "X:" << entity->cTransform->pos.x << std:: endl;
+    std::cout << "EnemyID" << entity->getId() << "Y:" << entity->cTransform->pos.y << std:: endl;
     // Keep track of frame when an enemy was spawned
     m_lastEnemySpawnTime = m_currentFrame;
 
@@ -121,7 +123,6 @@ void Game::spawnBullet(std::shared_ptr<Entity>  & entity, const Vec2 & mousePos)
     directionVector.normalize();
     directionVector *= m_bulletConfig.S;
     
-    // TODO: UPDATE VELOCITY VECTOR
     Vec2 playerPos(m_player->cShape->circle.getPosition().x, m_player->cShape->circle.getPosition().y);
     entity->cTransform = std::make_shared<CTransform>(playerPos, directionVector, 0.0f);
 
@@ -234,9 +235,15 @@ void Game::sMovement()
 
 void Game::sEnemySpawner()
 {
-    if(m_currentFrame - m_lastEnemySpawnTime > m_enemyConfig.SI )
+    m_activeEnemies = 0;
+    for(auto &e : m_entities.getEntities("Enemy"))
     {
-        if(m_activeEnemies <= 15)
+        m_activeEnemies++;
+    }
+    std::cout << "Active Enemies: " << m_activeEnemies << std::endl;
+    if(m_currentFrame - m_lastEnemySpawnTime > m_enemyConfig.SI)
+    {
+        if(m_activeEnemies < 15)
         {
             spawnEnemy();
         }
@@ -329,7 +336,7 @@ void Game::run()
     while(m_running)
     {
         m_entities.update();
-        m_activeEnemies = m_entities.getEntities("Enemy").size();
+        
         
         if(!m_paused)
         {
