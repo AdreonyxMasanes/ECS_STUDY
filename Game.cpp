@@ -2,9 +2,26 @@
 #include <fstream>
 #include <iostream>
 #include <math.h>
-Game::Game(const std::string & config)
+Game::Game(const std::string & config, const std::string & assets)
 {
     init(config);
+    loadAssets(assets);
+}
+void Game::loadAssets(const std::string & config)
+{
+    std::ifstream fin(config);
+    std::string configType;
+    while(fin >> configType)
+    {
+        if(configType == "Texture")
+        {
+            std::string name;
+            std::string filepath;
+            fin >> name >> filepath;
+            m_assets.addTexture(name, filepath);
+            std::cout << "Texture: " << name << " was loaded." << std::endl;
+        }
+    }
 }
 
 void Game::init(const std::string & path)
@@ -237,8 +254,6 @@ void Game::sMovement()
 void Game::sEnemySpawner()
 {
     m_activeEnemies = m_entities.getEntities("Enemy").size();
-
-    std::cout << "Active Enemies: " << m_activeEnemies << std::endl;
     if(m_currentFrame - m_lastEnemySpawnTime > m_enemyConfig.SI)
     {
         if(m_activeEnemies < 15)

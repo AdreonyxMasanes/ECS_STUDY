@@ -1,0 +1,1 @@
+Texture textRogueIdle Assets/Heroes/Rogue/Idle/Idle-Sheet.png

@@ -1,5 +1,6 @@
 #pragma once
 #include "EntityManager.h"
+#include "Assets.h"
 
 struct PlayerConfig {int SR, CR, FR, FG, FB, OR, OG, OB, OT, V; float S;};
 struct EnemyConfig {int SR, CR, OR, OG, OB, OT, VMIN, VMAX, L, SI; float SMIN, SMAX;};
@@ -13,6 +14,7 @@ class Game
     sf::Text m_text;
     std::shared_ptr<Entity> m_player;
     EntityManager m_entities;
+    Assets m_assets;
 
     PlayerConfig m_playerConfig;
     EnemyConfig m_enemyConfig;
@@ -26,6 +28,7 @@ class Game
     bool m_running = true;
 
     void init(const std::string &  config);
+    void loadAssets(const std::string & config);
     void update();
     void setPaused(bool paused); 
     
@@ -44,7 +47,7 @@ class Game
     void sLifespan();
     
     public:
-    Game(const std::string & config);
+    Game(const std::string & config, const std::string & assets);
     void run();
     // void configLoadTest();  
     
