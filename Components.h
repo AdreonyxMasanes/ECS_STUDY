@@ -1,6 +1,7 @@
 #pragma once
 #include "Vec2.h"
 #include <SFML/Graphics.hpp>
+#include "Animation.h"
 
 // Components
 class CTransform
@@ -69,12 +70,10 @@ class CLifespan
     : remaining(initial), initial(initial) {};
 };
 
-class CSprite
+class CAnimation
 {
     public:
-    sf::Sprite sprite;
-    CSprite(const sf::Texture & t)
-    {
-        sprite.setTexture(t); 
-    }
+    Animation animaiton;
+    CAnimation(Animation a)
+    : animaiton(a){};
 };

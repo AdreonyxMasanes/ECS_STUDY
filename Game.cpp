@@ -21,6 +21,18 @@ void Game::loadAssets(const std::string & config)
             m_assets.addTexture(name, filepath);
             std::cout << "Texture: " << name << " was loaded." << std::endl;
         }
+
+        if(configType == "Animation")
+        {
+            std::string animationName;
+            std::string textureName;
+            int frameCount;
+            int animationSpeed;
+
+            fin >> animationName >> textureName >> frameCount >> animationSpeed;
+            m_assets.addAnimation(animationName, m_assets.getTexture(textureName), frameCount, animationSpeed);
+            std::cout << "Aniamtion: " << animationName << " was loaded." << std::endl;
+        }
     }
 }
 
@@ -102,9 +114,20 @@ void Game::spawnPlayer()
 
     entity->cInput = std::make_shared<CInput>();
     entity->cCollision = std::make_shared<CCollision>(m_playerConfig.CR);
-    entity->cSprite = std::make_shared<CSprite>(m_assets.get("textRogueIdle"));
+    entity->cAnimation = std::make_shared<CAnimation>(m_assets.getAnimation("RogueIDLE"));
     
     m_player = entity;
+}
+
+void Game::sAnimation()
+{
+    for(auto& e : m_entities.getEntities())
+    {
+        if(e->cAnimation)
+        {
+            e->cAnimation->animaiton.update();
+        }
+    }
 }
 
 void Game::spawnEnemy()
@@ -290,12 +313,12 @@ void Game::sRender()
             e->cShape->circle.setOutlineColor(sf::Color(OR, OG, OB, alpha));
         }
         m_text.setString("Score: " + std::to_string(m_score));
-        m_window.draw(e->cShape->circle);
-        if(e->cSprite)
-        {
-            m_window.draw(e->cSprite->sprite);
+        if(e->cAnimation)
+        {  
+           m_window.draw( e->cAnimation->animaiton.getSprite());
         }
-        m_window.draw(m_text);
+        m_window.draw(e->cShape->circle);
+        //m_window.draw(m_text);
     }
     m_window.display();
 
@@ -362,8 +385,10 @@ void Game::run()
             sMovement();
             sCollison();
             sLifespan();
+            
         }
         sUserInput();
+        sAnimation();
         sRender();
         m_currentFrame++;
     }    

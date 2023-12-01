@@ -45,7 +45,7 @@ class Game
     void sEnemySpawner();
     void sCollison();
     void sLifespan();
-    
+    void sAnimation();
     public:
     Game(const std::string & config, const std::string & assets);
     void run();
