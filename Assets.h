@@ -9,6 +9,7 @@ class Assets
 
     public:
     void addTexture(const std::string & name, const std::string & path);
-    sf::Texture& getTexture(std::string & name) const;
+    sf::Texture& get(const std::string & name);
+    const sf::Texture& get(const std::string & name) const;
     
 };

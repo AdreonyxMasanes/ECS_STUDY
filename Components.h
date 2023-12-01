@@ -68,3 +68,13 @@ class CLifespan
     CLifespan(int initial)
     : remaining(initial), initial(initial) {};
 };
+
+class CSprite
+{
+    public:
+    sf::Sprite sprite;
+    CSprite(const sf::Texture & t)
+    {
+        sprite.setTexture(t); 
+    }
+};

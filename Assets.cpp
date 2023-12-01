@@ -7,11 +7,17 @@ void Assets::addTexture(const std::string & name, const std::string & path)
     {
         std::cout << "Texutre: " << name << " was not loaded" << std::endl;
     }
-    m_textures[name] = t;
+    m_textures.insert(std::make_pair(name, t));
 }
 
-sf::Texture & Assets::getTexture(std::string & name) const
+sf::Texture & Assets::get(const std::string & name) 
 {
-    auto texture = m_textures.find(name);
-    return *texture->second;
+    auto iter = m_textures.find(name);
+    return *iter->second;
+}
+
+const sf::Texture& Assets::get(const std::string & name) const
+{
+    auto iter = m_textures.find(name);
+    return *iter->second;
 }

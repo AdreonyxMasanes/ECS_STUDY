@@ -4,8 +4,8 @@
 #include <math.h>
 Game::Game(const std::string & config, const std::string & assets)
 {
-    init(config);
     loadAssets(assets);
+    init(config);
 }
 void Game::loadAssets(const std::string & config)
 {
@@ -102,7 +102,8 @@ void Game::spawnPlayer()
 
     entity->cInput = std::make_shared<CInput>();
     entity->cCollision = std::make_shared<CCollision>(m_playerConfig.CR);
-
+    entity->cSprite = std::make_shared<CSprite>(m_assets.get("textRogueIdle"));
+    
     m_player = entity;
 }
 
@@ -290,6 +291,10 @@ void Game::sRender()
         }
         m_text.setString("Score: " + std::to_string(m_score));
         m_window.draw(e->cShape->circle);
+        if(e->cSprite)
+        {
+            m_window.draw(e->cSprite->sprite);
+        }
         m_window.draw(m_text);
     }
     m_window.display();
